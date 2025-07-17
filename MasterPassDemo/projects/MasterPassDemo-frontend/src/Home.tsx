@@ -1,11 +1,10 @@
 // src/components/Home.tsx
 import { useWallet } from '@txnlab/use-wallet-react'
+import { WalletButton } from '@txnlab/use-wallet-ui-react'
 import React, { useState } from 'react'
-import ConnectWallet from './components/ConnectWallet'
 
 const Home: React.FC = () => {
   const { activeAddress } = useWallet()
-  const [openWalletModal, setOpenWalletModal] = useState(false)
   const [hasClaimed, setHasClaimed] = useState(false)
 
   const handleClaim = () => {
@@ -22,13 +21,11 @@ const Home: React.FC = () => {
           Your ticket to join exclusive Web3 events.
         </p>
 
-        <button
-          onClick={() => setOpenWalletModal(true)}
-          className="btn btn-primary w-full mb-4"
-        >
-          Connect Wallet
-        </button>
+        <div className="btn w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+          <WalletButton />
+        </div>
 
+        {/* Get MasterPass Button */}
         {!hasClaimed ? (
           <button
             onClick={handleClaim}
@@ -41,8 +38,6 @@ const Home: React.FC = () => {
             NFT & Token features coming soon in Session 4 & 5 🚀
           </div>
         )}
-
-        <ConnectWallet openModal={openWalletModal} closeModal={() => setOpenWalletModal(false)} />
       </div>
     </div>
   )

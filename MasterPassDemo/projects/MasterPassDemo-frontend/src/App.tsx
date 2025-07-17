@@ -1,7 +1,17 @@
-import { SupportedWallet, WalletId, WalletManager, WalletProvider } from '@txnlab/use-wallet-react'
+// src/App.tsx
+import {
+  SupportedWallet,
+  WalletId,
+  WalletManager,
+  WalletProvider
+} from '@txnlab/use-wallet-react'
+import { WalletUIProvider } from '@txnlab/use-wallet-ui-react'
 import { SnackbarProvider } from 'notistack'
 import Home from './Home'
-import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
+import {
+  getAlgodConfigFromViteEnvironment,
+  getKmdConfigFromViteEnvironment
+} from './utils/network/getAlgoClientConfigs'
 
 let supportedWallets: SupportedWallet[]
 if (import.meta.env.VITE_ALGOD_NETWORK === 'localnet') {
@@ -21,8 +31,6 @@ if (import.meta.env.VITE_ALGOD_NETWORK === 'localnet') {
     { id: WalletId.DEFLY },
     { id: WalletId.PERA },
     { id: WalletId.EXODUS },
-    // If you are interested in WalletConnect v2 provider
-    // refer to https://github.com/TxnLab/use-wallet for detailed integration instructions
   ]
 }
 
@@ -49,7 +57,9 @@ export default function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <WalletProvider manager={walletManager}>
-        <Home />
+        <WalletUIProvider>
+          <Home />
+        </WalletUIProvider>
       </WalletProvider>
     </SnackbarProvider>
   )
