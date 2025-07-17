@@ -1,0 +1,14 @@
+name: Pull Request validation
+
+on: [pull_request]
+
+
+jobs:
+  MasterPassDemo-contracts-ci:
+    name: Run MasterPassDemo-contracts validation
+    uses: ./.github/workflows/MasterPassDemo-contracts-ci.yaml
+
+  MasterPassDemo-frontend-ci:
+    name: Run MasterPassDemo-frontend validation
+    uses: ./.github/workflows/MasterPassDemo-frontend-ci.yaml
+

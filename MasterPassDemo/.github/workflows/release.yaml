@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  MasterPassDemo-contracts-validate:
+    name: Run MasterPassDemo-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/MasterPassDemo-contracts-ci.yaml
+
+  MasterPassDemo-contracts-release:
+    name: Run MasterPassDemo-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/MasterPassDemo-contracts-cd.yaml
+    needs: MasterPassDemo-contracts-validate
+
+  MasterPassDemo-frontend-validate:
+    name: Run MasterPassDemo-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/MasterPassDemo-frontend-ci.yaml
+
+  MasterPassDemo-frontend-release:
+    name: Run MasterPassDemo-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/MasterPassDemo-frontend-cd.yaml
+    needs: MasterPassDemo-frontend-validate
